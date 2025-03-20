@@ -64,5 +64,13 @@ For more information on using the Angular CLI, including detailed command refere
 
 
 # MyReminder
-npm run dev - criar API Rest com base no ficheiro database.json
-ng s - iniciar app
+
+Create API Rest based on file database.json
+```bash
+ng build
+```
+
+To run the project run:
+```bash
+ng s
+```
