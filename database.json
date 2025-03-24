@@ -1,22 +1,26 @@
 {
   "todos": [
     {
-      "id": "9412",
-      "title": "compras",
+      "id": "1a2b",
+      "title": "Completar projeto Angular",
       "completed": false,
-      "description": "feijao\ncarne\narroz"
+      "description": "Quase"
     },
     {
-      "id": "1b39",
-      "title": "estudo",
-      "completed": false,
-      "description": "DAMA\nCloud"
+      "id": "3c4d",
+      "title": "Aprender TypeScript",
+      "completed": true
     },
     {
-      "id": "fb99",
-      "title": "emails",
+      "id": "5e6f",
+      "title": "Configurar ambiente de desenvolvimento",
       "completed": false,
-      "description": "enviar cv prof "
+      "description": "npm run seed"
+    },
+    {
+      "id": "7g8h",
+      "title": "Revisar documentação do Angular",
+      "completed": true
     }
   ]
 }

@@ -9,7 +9,10 @@
     "test": "ng test",
     "serve:ssr:AngularTodoApp": "node dist/angular-todo-app/server/server.mjs",
     "server": "json-server --watch database.json --port 3000",
-    "dev": "concurrently \"npm run server\" \"npm run start\""
+    "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "seed": "node seed.js seed",
+    "db:clear": "node seed.js clear",
+    "db:reset": "node seed.js clear && node seed.js seed"
   },
   "private": true,
   "dependencies": {

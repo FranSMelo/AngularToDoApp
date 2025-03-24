@@ -58,11 +58,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-
-
-
-
-
 # MyReminder
 
 Create API Rest based on file database.json
@@ -73,4 +68,23 @@ npm run dev
 To run the project run:
 ```bash
 ng s
+```
+
+## Database Management
+
+The project includes seed functionality to help manage the database:
+
+### Seed the database with initial data
+```bash
+npm run seed
+```
+
+### Clear all data from the database
+```bash
+npm run db:clear
+```
+
+### Reset the database (clear and then seed)
+```bash
+npm run db:reset
 ```
