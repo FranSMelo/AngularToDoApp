@@ -67,7 +67,7 @@ For more information on using the Angular CLI, including detailed command refere
 
 Create API Rest based on file database.json
 ```bash
-ng build
+npm run dev
 ```
 
 To run the project run:

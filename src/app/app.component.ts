@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TodoFormComponent } from './components/todo-form/todo-form.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
-import { TodoStatsComponent } from './components/todo-stats/todo-stats.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TodoFormComponent, TodoListComponent, TodoStatsComponent],
+  imports: [RouterOutlet, NgIf],
   template: `
     <div class="container">
       <header>
@@ -15,9 +13,7 @@ import { TodoStatsComponent } from './components/todo-stats/todo-stats.component
         <p class="subtitle">Aqui pode gerir as suas tarefas diarias!</p>
       </header>
       <main>
-        <app-todo-form></app-todo-form>
-        <app-todo-stats></app-todo-stats>
-        <app-todo-list></app-todo-list>
+        <router-outlet></router-outlet>
       </main>
       <footer>
         <p>Desenvolvido com Angular {{ angularVersion }}</p>
@@ -64,6 +60,6 @@ import { TodoStatsComponent } from './components/todo-stats/todo-stats.component
   `]
 })
 export class AppComponent {
-  title = 'Lista de Tarefas';
-  angularVersion = '19.2';
+  title = 'MyReminder';
+  angularVersion = '17.0.0';
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 import { NgClass } from '@angular/common';
@@ -6,7 +7,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   template: `
     <div class="todo-item" [ngClass]="{'completed': todo.completed}">
       <div class="todo-content">
@@ -21,7 +22,10 @@ import { NgClass } from '@angular/common';
         </div>
         <span class="todo-title">{{ todo.title }}</span>
       </div>
-      <button class="delete-btn" (click)="deleteTodo()" title="Excluir tarefa">×</button>
+      <div class="todo-actions">
+        <a [routerLink]="['/todo', todo.id]" class="details-btn" title="Ver detalhes">📝</a>
+        <button class="delete-btn" (click)="deleteTodo()" title="Excluir tarefa">×</button>
+      </div>
     </div>
   `,
   styles: [`
@@ -85,6 +89,25 @@ import { NgClass } from '@angular/common';
     .completed .todo-title {
       text-decoration: line-through;
       color: #95a5a6;
+    }
+    .todo-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .details-btn {
+      text-decoration: none;
+      color: #3498db;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    .todo-item:hover .details-btn {
+      opacity: 1;
+    }
+    .details-btn:hover {
+      color: #2980b9;
     }
     .delete-btn {
       background: none;

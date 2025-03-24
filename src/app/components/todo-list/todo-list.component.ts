@@ -65,8 +65,8 @@ export class TodoListComponent {
     this.todos = this.todoService.getTodos();
   }
   
-  // Improves rendering performance for large lists
-  trackById(index: number, todo: {id: number}) {
+  // Update trackBy to handle string or number IDs
+  trackById(index: number, todo: {id: string | number}) {
     return todo.id;
   }
 }

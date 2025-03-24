@@ -64,7 +64,7 @@ export class TodoService {
     }
   }
 
-  async toggleTodo(id: number) {
+  async toggleTodo(id: string | number) {
     try {
       this.isLoading.set(true);
       const todo = this.todos().find(t => t.id === id);
@@ -92,7 +92,7 @@ export class TodoService {
     }
   }
 
-  async deleteTodo(id: number) {
+  async deleteTodo(id: string | number) {
     try {
       this.isLoading.set(true);
       console.log(`Excluindo tarefa ${id}...`);
@@ -157,6 +157,43 @@ export class TodoService {
       console.log('Todas as tarefas foram marcadas como concluídas');
     } catch (error) {
       console.error('Erro ao marcar todas as tarefas como concluídas:', error);
+      await this.loadTodos(); // Recarregar em caso de erro
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  // Add this new method to get a specific todo by ID
+  async getTodoById(id: string | number): Promise<Todo | null> {
+    try {
+      this.isLoading.set(true);
+      console.log(`Buscando tarefa ${id}...`);
+      
+      const todo = await firstValueFrom(this.http.get<Todo>(`${this.apiUrl}/${id}`));
+      return todo;
+    } catch (error) {
+      console.error(`Erro ao buscar tarefa ${id}:`, error);
+      return null;
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  // Add this new method to update a todo
+  async updateTodo(todo: Todo): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      console.log(`Atualizando tarefa ${todo.id}...`);
+      
+      await firstValueFrom(this.http.put<Todo>(`${this.apiUrl}/${todo.id}`, todo));
+      
+      this.todos.update(todos =>
+        todos.map(t => t.id === todo.id ? todo : t)
+      );
+      
+      console.log(`Tarefa ${todo.id} atualizada com sucesso`);
+    } catch (error) {
+      console.error(`Erro ao atualizar tarefa ${todo.id}:`, error);
       await this.loadTodos(); // Recarregar em caso de erro
     } finally {
       this.isLoading.set(false);
