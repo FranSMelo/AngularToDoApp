@@ -64,7 +64,7 @@ export class TodoService {
     }
   }
 
-  async toggleTodo(id: number) {
+  async toggleTodo(id: string | number) {
     try {
       this.isLoading.set(true);
       const todo = this.todos().find(t => t.id === id);
@@ -92,7 +92,7 @@ export class TodoService {
     }
   }
 
-  async deleteTodo(id: number) {
+  async deleteTodo(id: string | number) {
     try {
       this.isLoading.set(true);
       console.log(`Excluindo tarefa ${id}...`);
@@ -164,7 +164,7 @@ export class TodoService {
   }
 
   // Add this new method to get a specific todo by ID
-  async getTodoById(id: number): Promise<Todo | null> {
+  async getTodoById(id: string | number): Promise<Todo | null> {
     try {
       this.isLoading.set(true);
       console.log(`Buscando tarefa ${id}...`);

@@ -214,7 +214,7 @@ export class TodoDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const todoId = Number(params.get('id'));
+      const todoId = params.get('id');
       if (todoId) {
         this.loadTodo(todoId);
       } else {
@@ -223,7 +223,7 @@ export class TodoDetailsComponent implements OnInit {
     });
   }
 
-  async loadTodo(id: number) {
+  async loadTodo(id: string | number) {
     this.loading = true;
     try {
       const todo = await this.todoService.getTodoById(id);
