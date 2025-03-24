@@ -15,12 +15,12 @@
       "id": "5e6f",
       "title": "Configurar ambiente de desenvolvimento",
       "completed": false,
-      "description": "npm run seed"
+      "description": "ngrok teste"
     },
     {
       "id": "7g8h",
       "title": "Revisar documentação do Angular",
-      "completed": true
+      "completed": false
     }
   ]
 }

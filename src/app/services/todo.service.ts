@@ -1,26 +1,19 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Todo } from '../models/todo.model';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { Todo } from '../models/todo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private apiUrl = 'http://localhost:3000/todos';
+  // Alterar de http://localhost:3000/todos para /api/todos
+  private apiUrl = '/api/todos';
+  
+  // Signals para estado da aplicação
   private todos = signal<Todo[]>([]);
   private isLoading = signal<boolean>(false);
-
-  // Computed values for statistics
-  completedCount = computed(() => this.todos().filter(todo => todo.completed).length);
-  pendingCount = computed(() => this.todos().filter(todo => !todo.completed).length);
-  totalCount = computed(() => this.todos().length);
-  completionRate = computed(() => {
-    const total = this.totalCount();
-    return total > 0 ? Math.round((this.completedCount() / total) * 100) : 0;
-  });
-  loading = computed(() => this.isLoading());
-
+  
   constructor(private http: HttpClient) {
     this.loadTodos();
     console.log('TodoService inicializado - Carregando dados do servidor...');
@@ -42,6 +35,10 @@ export class TodoService {
 
   getTodos() {
     return this.todos.asReadonly();
+  }
+  
+  getLoadingState() {
+    return this.isLoading.asReadonly();
   }
 
   async addTodo(title: string) {
@@ -163,12 +160,29 @@ export class TodoService {
     }
   }
 
-  // Add this new method to get a specific todo by ID
+  // Métodos para estatísticas
+  totalCount() {
+    return this.todos().length;
+  }
+  
+  completedCount() {
+    return this.todos().filter(todo => todo.completed).length;
+  }
+  
+  pendingCount() {
+    return this.todos().filter(todo => !todo.completed).length;
+  }
+  
+  completionRate() {
+    const total = this.totalCount();
+    if (total === 0) return 0;
+    return Math.round((this.completedCount() / total) * 100);
+  }
+
   async getTodoById(id: string | number): Promise<Todo | null> {
     try {
       this.isLoading.set(true);
-      console.log(`Buscando tarefa ${id}...`);
-      
+      console.log(`Buscando tarefa com ID: ${id}`);
       const todo = await firstValueFrom(this.http.get<Todo>(`${this.apiUrl}/${id}`));
       return todo;
     } catch (error) {

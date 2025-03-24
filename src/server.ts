@@ -7,6 +7,7 @@ import {
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -14,28 +15,17 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// Configuração de proxy para o JSON Server
+app.use('/api', createProxyMiddleware({
+  target: 'http://localhost:3000',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api': '' // remove o prefixo /api antes de encaminhar
+  }
+}));
 
-/**
- * Serve static files from /browser
- */
-app.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: false,
-    redirect: false,
-  }),
-);
+// Serve static files from the browser dist folder
+app.get('*.*', express.static(browserDistFolder, { maxAge: '1y' }));
 
 /**
  * Handle all other requests by rendering the Angular application.

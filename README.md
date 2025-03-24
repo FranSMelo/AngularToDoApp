@@ -88,3 +88,45 @@ npm run db:clear
 ```bash
 npm run db:reset
 ```
+
+## Remote Access with ngrok
+
+You can access the application remotely, including backend and database access, using ngrok.
+
+### Prerequisites
+1. Install ngrok: https://ngrok.com/download or via npm:
+   ```bash
+   npm install -g ngrok
+   ```
+
+2. Register on ngrok website and get an authtoken:
+   - Create an account at https://ngrok.com (free)
+   - Get your token at https://dashboard.ngrok.com/get-started/your-authtoken
+   - Configure your token locally:
+     ```bash
+     ngrok config add-authtoken YOUR_TOKEN
+     ```
+
+### Configuration and execution
+1. Start the JSON Server (database):
+   ```bash
+   npm run dev
+   ```
+
+2. In another terminal, start the Angular SSR server:
+   ```bash
+   npm run serve:ssr:AngularTodoApp
+   ```
+
+3. In a third terminal, start ngrok pointing to the Angular server:
+   ```bash
+   ngrok http 4000
+   ```
+
+4. Use the URL provided by ngrok to access your application from anywhere.
+
+#### How it works
+- The Angular SSR server runs on port 4000
+- The SSR server is configured with a proxy that redirects API requests to the JSON Server (port 3000)
+- Ngrok creates a secure tunnel to your application, allowing external access
+- All operations (listing, adding, editing, and deleting tasks) work normally through the ngrok URL
