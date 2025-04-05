@@ -60,6 +60,6 @@ import { NgIf } from '@angular/common';
   `]
 })
 export class AppComponent {
-  title = 'MyReminder';
+  title = 'Lista de Tarefas';
   angularVersion = '17.0.0';
 }

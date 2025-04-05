@@ -7,11 +7,6 @@
       "description": "Quase"
     },
     {
-      "id": "3c4d",
-      "title": "Aprender TypeScript",
-      "completed": true
-    },
-    {
       "id": "5e6f",
       "title": "Configurar ambiente de desenvolvimento",
       "completed": false,
