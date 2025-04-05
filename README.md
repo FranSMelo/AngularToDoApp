@@ -108,22 +108,27 @@ You can access the application remotely, including backend and database access, 
      ```
 
 ### Configuration and execution
-1. Start the JSON Server (database):
+1. Build the application first to ensure the latest changes are included:
+   ```bash
+   ng build
+   ```
+   
+2. Start the JSON Server (database):
    ```bash
    npm run dev
    ```
 
-2. In another terminal, start the Angular SSR server:
+3. In another terminal, start the Angular SSR server:
    ```bash
    npm run serve:ssr:AngularTodoApp
    ```
 
-3. In a third terminal, start ngrok pointing to the Angular server:
+4. In a third terminal, start ngrok pointing to the Angular server:
    ```bash
    ngrok http 4000
    ```
 
-4. Use the URL provided by ngrok to access your application from anywhere.
+5. Use the URL provided by ngrok to access your application from anywhere.
 
 #### How it works
 - The Angular SSR server runs on port 4000
